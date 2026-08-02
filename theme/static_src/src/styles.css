@@ -4,6 +4,9 @@
   --color-dark-brand: #0c0116;
   --color-white-brand: #fff;
   --color-violet-brand: #5c6bff;
+  --color-violet-ink: #4338ca;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-heading: 'Share Tech', ui-sans-serif, system-ui, sans-serif;
 }
 
 /**

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Lexique - AI MIND{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-[90%] px-6 pt-32 pb-24 lg:px-8">
+    <div class="rounded-3xl bg-white px-6 py-10 text-gray-900 shadow-2xl shadow-black/30 sm:px-10 sm:py-14">
+
+        <a href="{% url 'index' %}" class="mb-8 inline-flex items-center gap-1.5 text-sm font-medium text-violet-ink transition hover:text-gray-900">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" class="size-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+            </svg>
+            Retour
+        </a>
+
+        <header data-reveal class="mb-10 border-b border-gray-200 pb-8">
+            <h1 class="font-heading text-3xl font-semibold tracking-tight text-balance text-gray-900 sm:text-4xl">
+                Lexique de l'IA et de la donnée
+            </h1>
+            <p class="mt-4 text-base text-pretty text-gray-600 sm:text-lg">
+                Les termes essentiels pour comprendre l'intelligence artificielle et la gouvernance des données.
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_240px] lg:items-start">
+            <main data-reveal class="min-w-0 text-gray-700">
+
+                <h2 id="a" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900 first:mt-0">A</h2>
+
+                <h3 id="api" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">API</h3>
+                <p class="mb-4 leading-7">Interface de programmation applicative permettant à deux logiciels de communiquer entre eux selon un ensemble de règles définies.</p>
+
+                <div class="my-6 rounded-xl border-l-4 border-violet-brand bg-violet-brand/10 p-5">
+                    <div class="mb-2 text-xs font-medium tracking-wide text-violet-ink uppercase">À retenir</div>
+                    <p class="text-sm text-violet-ink">La majorité des modèles de langage sont aujourd'hui accessibles via une API plutôt que déployés localement.</p>
+                </div>
+
+                <h2 id="d" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">D</h2>
+
+                <h3 id="data-governance" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">Data Governance</h3>
+                <p class="mb-4 leading-7">Ensemble de pratiques, processus et outils permettant de gérer les données d'une organisation comme un actif stratégique.</p>
+
+                <h3 id="data-mesh" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">Data Mesh</h3>
+                <p class="mb-4 leading-7">Architecture décentralisée où chaque domaine métier possède et expose ses propres données comme un produit.</p>
+
+                <h2 id="f" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">F</h2>
+
+                <h3 id="fine-tuning" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">Fine-tuning</h3>
+                <p class="mb-4 leading-7">Processus d'ajustement d'un modèle pré-entraîné sur un jeu de données spécifique afin de le spécialiser pour une tâche donnée.</p>
+
+                <h2 id="l" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">L</h2>
+
+                <h3 id="llm" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">LLM (Large Language Model)</h3>
+                <p class="mb-4 leading-7">Modèle de langage de grande taille entraîné sur d'immenses corpus de texte, capable de comprendre et générer du langage naturel.</p>
+
+                <div class="my-6 rounded-xl border-l-4 border-violet-brand bg-violet-brand/10 p-5">
+                    <div class="mb-2 text-xs font-medium tracking-wide text-violet-ink uppercase">Point clé</div>
+                    <p class="text-sm text-violet-ink">Un LLM ne "comprend" pas le texte au sens humain : il prédit statistiquement la suite la plus probable d'une séquence.</p>
+                </div>
+
+                <h2 id="p" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">P</h2>
+
+                <h3 id="prompt-engineering" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">Prompt Engineering</h3>
+                <p class="mb-4 leading-7">Discipline consistant à formuler et structurer les instructions envoyées à un modèle pour en obtenir les meilleurs résultats possibles.</p>
+
+                <h2 id="r" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">R</h2>
+
+                <h3 id="rag" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">RAG (Retrieval-Augmented Generation)</h3>
+                <p class="mb-4 leading-7">Technique combinant un modèle de génération de texte avec un système de recherche documentaire pour produire des réponses ancrées dans des sources externes.</p>
+
+                <h2 id="t" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">T</h2>
+
+                <h3 id="transformer" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">Transformer</h3>
+                <p class="mb-4 leading-7">Architecture de réseau de neurones basée sur le mécanisme d'attention, à l'origine des modèles de langage modernes.</p>
+
+                <div class="my-6 flex flex-wrap gap-2">
+                    <a href="#" class="rounded-full border border-violet-brand/30 bg-violet-brand/10 px-3 py-1 text-xs text-violet-ink transition hover:bg-violet-brand/20">Glossaire</a>
+                    <a href="#" class="rounded-full border border-violet-brand/30 bg-violet-brand/10 px-3 py-1 text-xs text-violet-ink transition hover:bg-violet-brand/20">Intelligence Artificielle</a>
+                    <a href="#" class="rounded-full border border-violet-brand/30 bg-violet-brand/10 px-3 py-1 text-xs text-violet-ink transition hover:bg-violet-brand/20">Data</a>
+                </div>
+            </main>
+
+            <aside data-reveal style="--reveal-delay: 0.1s" class="hidden lg:block">
+                <nav class="sticky top-28 rounded-2xl border border-gray-200 bg-gray-50 p-5">
+                    <div class="mb-4 text-xs font-medium tracking-wide text-gray-500 uppercase">Sommaire</div>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#a" class="text-violet-ink transition hover:text-gray-900">A</a></li>
+                        <li><a href="#d" class="text-violet-ink transition hover:text-gray-900">D</a></li>
+                        <li><a href="#f" class="text-violet-ink transition hover:text-gray-900">F</a></li>
+                        <li><a href="#l" class="text-violet-ink transition hover:text-gray-900">L</a></li>
+                        <li><a href="#p" class="text-violet-ink transition hover:text-gray-900">P</a></li>
+                        <li><a href="#r" class="text-violet-ink transition hover:text-gray-900">R</a></li>
+                        <li><a href="#t" class="text-violet-ink transition hover:text-gray-900">T</a></li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+    </div>
+</div>
+{% endblock %}

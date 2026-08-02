@@ -54,3 +54,11 @@ def index(request):
     )
 
     return render(request, 'index.html', {'topics_chart': topics_chart})
+
+
+def article(request):
+    return render(request, 'article.html')
+
+
+def lexique(request):
+    return render(request, 'lexique.html')
