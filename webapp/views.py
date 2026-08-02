@@ -23,8 +23,6 @@ def index(request):
         y=labels,
         orientation='h',
         marker=dict(color='#5c6bff', cornerradius=6),
-        text=values,
-        textposition='outside',
         hovertemplate='%{y} : %{x}<extra></extra>',
     ))
     fig.update_layout(
@@ -33,9 +31,20 @@ def index(request):
         font=dict(color='#9ca3af', family='ui-sans-serif, system-ui, sans-serif', size=12),
         margin=dict(l=0, r=30, t=10, b=10),
         xaxis=dict(visible=False),
-        yaxis=dict(showgrid=False, autorange='reversed', color='#e5e7eb'),
+        yaxis=dict(showgrid=False, autorange='reversed', color='#e5e7eb', ticklabelstandoff=10),
         bargap=0.45,
         height=260,
+        annotations=[
+            dict(
+                x=value,
+                y=label,
+                text=str(value),
+                showarrow=False,
+                xshift=15,       # gap in pixels between bar end and text
+                xanchor='left',
+            )
+            for label, value in TOPICS
+        ],
     )
 
     topics_chart = fig.to_html(
