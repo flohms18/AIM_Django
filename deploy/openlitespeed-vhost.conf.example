@@ -1,0 +1,47 @@
+# Example OpenLiteSpeed virtual host config (vhconf.conf), as an alternative
+# to deploy/nginx.conf.example. Same job: serve /static/ directly (since
+# DEBUG=False means Django won't do it) and proxy everything else to the
+# gunicorn socket started by deploy/gunicorn.service.example.
+#
+# Two ways to apply this:
+#   A) WebAdmin console (https://your-server-ip:7080) — Virtual Hosts > your
+#      vhost > Context, and add the proxy/static contexts by hand using the
+#      values below.
+#   B) Drop this into /usr/local/lsws/conf/vhosts/<vhost-name>/vhconf.conf
+#      (adjust docRoot/vhDomain first), then either hit "Graceful Restart" in
+#      WebAdmin or: sudo /usr/local/lsws/bin/lswsctrl restart
+#
+# Must match STATIC_ROOT in settings.py.
+docRoot                   /path/to/AIM_Django/staticfiles
+vhDomain                  example.com
+vhAliases                 www.example.com
+
+context /static/ {
+  location                /path/to/AIM_Django/staticfiles/
+  allowBrowse             1
+}
+
+context / {
+  type                    proxy
+  handler                 gunicorn_aim_django
+}
+
+extprocessor gunicorn_aim_django {
+  type                    proxy
+  # Unix socket (must match --bind in gunicorn.service.example):
+  address                 UDS:///run/gunicorn/aim_django.sock
+  maxConns                35
+  initTimeout             60
+  retryTimeout            0
+  respBuffer              0
+}
+
+# Permission gotcha specific to OLS: unlike nginx (usually www-data), OLS's
+# worker process runs as whatever user/group is set in WebAdmin > Server
+# Configuration > General (often "nobody"/"nogroup" on a fresh install). The
+# gunicorn.service User/Group must either match that, or that user must be in
+# the socket's group, or the socket dir needs RuntimeDirectoryMode=0770 with
+# both users sharing a group. If sockets become a headache, the simpler fix
+# is switching gunicorn to bind a loopback TCP port instead:
+#   ExecStart=... gunicorn --workers 3 --bind 127.0.0.1:8001 AIM_Django.wsgi:application
+# and setting address above to: 127.0.0.1:8001
