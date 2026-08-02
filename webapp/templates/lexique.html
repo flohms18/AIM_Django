@@ -22,75 +22,30 @@
             </p>
         </header>
 
+        {% regroup terms by first_letter as letter_groups %}
+
         <div class="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_240px] lg:items-start">
-            <main data-reveal class="min-w-0 text-gray-700">
-
-                <h2 id="a" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900 first:mt-0">A</h2>
-
-                <h3 id="api" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">API</h3>
-                <p class="mb-4 leading-7">Interface de programmation applicative permettant à deux logiciels de communiquer entre eux selon un ensemble de règles définies.</p>
-
-                <div class="my-6 rounded-xl border-l-4 border-violet-brand bg-violet-brand/10 p-5">
-                    <div class="mb-2 text-xs font-medium tracking-wide text-violet-ink uppercase">À retenir</div>
-                    <p class="text-sm text-violet-ink">La majorité des modèles de langage sont aujourd'hui accessibles via une API plutôt que déployés localement.</p>
+            <main class="min-w-0 text-gray-700">
+                {% for group in letter_groups %}
+                <div data-reveal style="--reveal-delay: {% cycle '0s' '0.1s' '0.2s' '0.3s' as reveal_delay %}">
+                    <h2 id="{{ group.grouper|lower }}" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900 first:mt-0">{{ group.grouper }}</h2>
+                    {% for term in group.list %}
+                    <h3 id="{{ term.term|slugify }}" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">{{ term.term }}</h3>
+                    <p class="mb-4 leading-7">{{ term.definition }}</p>
+                    {% endfor %}
                 </div>
-
-                <h2 id="d" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">D</h2>
-
-                <h3 id="data-governance" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">Data Governance</h3>
-                <p class="mb-4 leading-7">Ensemble de pratiques, processus et outils permettant de gérer les données d'une organisation comme un actif stratégique.</p>
-
-                <h3 id="data-mesh" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">Data Mesh</h3>
-                <p class="mb-4 leading-7">Architecture décentralisée où chaque domaine métier possède et expose ses propres données comme un produit.</p>
-
-                <h2 id="f" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">F</h2>
-
-                <h3 id="fine-tuning" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">Fine-tuning</h3>
-                <p class="mb-4 leading-7">Processus d'ajustement d'un modèle pré-entraîné sur un jeu de données spécifique afin de le spécialiser pour une tâche donnée.</p>
-
-                <h2 id="l" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">L</h2>
-
-                <h3 id="llm" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">LLM (Large Language Model)</h3>
-                <p class="mb-4 leading-7">Modèle de langage de grande taille entraîné sur d'immenses corpus de texte, capable de comprendre et générer du langage naturel.</p>
-
-                <div class="my-6 rounded-xl border-l-4 border-violet-brand bg-violet-brand/10 p-5">
-                    <div class="mb-2 text-xs font-medium tracking-wide text-violet-ink uppercase">Point clé</div>
-                    <p class="text-sm text-violet-ink">Un LLM ne "comprend" pas le texte au sens humain : il prédit statistiquement la suite la plus probable d'une séquence.</p>
-                </div>
-
-                <h2 id="p" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">P</h2>
-
-                <h3 id="prompt-engineering" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">Prompt Engineering</h3>
-                <p class="mb-4 leading-7">Discipline consistant à formuler et structurer les instructions envoyées à un modèle pour en obtenir les meilleurs résultats possibles.</p>
-
-                <h2 id="r" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">R</h2>
-
-                <h3 id="rag" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">RAG (Retrieval-Augmented Generation)</h3>
-                <p class="mb-4 leading-7">Technique combinant un modèle de génération de texte avec un système de recherche documentaire pour produire des réponses ancrées dans des sources externes.</p>
-
-                <h2 id="t" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">T</h2>
-
-                <h3 id="transformer" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">Transformer</h3>
-                <p class="mb-4 leading-7">Architecture de réseau de neurones basée sur le mécanisme d'attention, à l'origine des modèles de langage modernes.</p>
-
-                <div class="my-6 flex flex-wrap gap-2">
-                    <a href="#" class="rounded-full border border-violet-brand/30 bg-violet-brand/10 px-3 py-1 text-xs text-violet-ink transition hover:bg-violet-brand/20">Glossaire</a>
-                    <a href="#" class="rounded-full border border-violet-brand/30 bg-violet-brand/10 px-3 py-1 text-xs text-violet-ink transition hover:bg-violet-brand/20">Intelligence Artificielle</a>
-                    <a href="#" class="rounded-full border border-violet-brand/30 bg-violet-brand/10 px-3 py-1 text-xs text-violet-ink transition hover:bg-violet-brand/20">Data</a>
-                </div>
+                {% empty %}
+                <p class="mb-4 leading-7">Aucun terme pour le moment.</p>
+                {% endfor %}
             </main>
 
             <aside data-reveal style="--reveal-delay: 0.1s" class="hidden lg:block">
                 <nav class="sticky top-28 rounded-2xl border border-gray-200 bg-gray-50 p-5">
                     <div class="mb-4 text-xs font-medium tracking-wide text-gray-500 uppercase">Sommaire</div>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="#a" class="text-violet-ink transition hover:text-gray-900">A</a></li>
-                        <li><a href="#d" class="text-violet-ink transition hover:text-gray-900">D</a></li>
-                        <li><a href="#f" class="text-violet-ink transition hover:text-gray-900">F</a></li>
-                        <li><a href="#l" class="text-violet-ink transition hover:text-gray-900">L</a></li>
-                        <li><a href="#p" class="text-violet-ink transition hover:text-gray-900">P</a></li>
-                        <li><a href="#r" class="text-violet-ink transition hover:text-gray-900">R</a></li>
-                        <li><a href="#t" class="text-violet-ink transition hover:text-gray-900">T</a></li>
+                        {% for group in letter_groups %}
+                        <li><a href="#{{ group.grouper|lower }}" class="text-violet-ink transition hover:text-gray-900">{{ group.grouper }}</a></li>
+                        {% endfor %}
                     </ul>
                 </nav>
             </aside>

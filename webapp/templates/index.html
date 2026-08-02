@@ -22,7 +22,7 @@
     </div>
 
     <div class="mx-auto grid max-w-5xl grid-cols-1 gap-6 px-6 pb-24 sm:grid-cols-2 sm:pb-32 lg:px-8">
-        <a href="#" data-reveal class="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-white/20 hover:bg-white/10">
+        <a href="{% url 'category' 'campus' %}" data-reveal class="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-white/20 hover:bg-white/10">
             <div class="mb-4 flex items-center gap-3">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" class="size-6 text-violet-brand">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
@@ -37,7 +37,7 @@
             </div>
         </a>
 
-        <a href="#" data-reveal style="--reveal-delay: 0.1s" class="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-white/20 hover:bg-white/10">
+        <a href="{% url 'category' 'lab' %}" data-reveal style="--reveal-delay: 0.1s" class="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-white/20 hover:bg-white/10">
             <div class="mb-4 flex items-center gap-3">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" class="size-6 text-violet-brand">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
@@ -48,64 +48,68 @@
             <div class="flex flex-wrap gap-2">
                 <span class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-xs text-emerald-300">DataStories</span>
                 <span class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-xs text-emerald-300">Open Data</span>
-                <span class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-xs text-emerald-300">Actualités</span>
+                <span class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-xs text-emerald-300">Trends</span>
             </div>
         </a>
     </div>
 
     <div class="mx-auto max-w-5xl px-6 pb-24 lg:px-8">
-        <h3 data-reveal class="font-heading mb-6 text-center text-base font-medium text-white">Derniers articles</h3>
+        <h3 data-reveal class="font-heading mb-6 text-center text-2xl font-medium text-white">Derniers articles</h3>
         <div class="space-y-8 text-center">
-            <a href="{% url 'article' %}" data-reveal class="group block">
-                <h4 class="font-heading text-xl font-medium text-white transition group-hover:text-violet-brand sm:text-2xl">Comment les données structurent les organisations modernes</h4>
-                <div class="mt-2 text-sm text-gray-400">15 juillet 2024 • 8 min de lecture</div>
+            {% for post in page_obj %}
+            <a href="{% url 'article' post.slug %}" data-reveal {% if not forloop.first %}style="--reveal-delay: {% cycle '0.1s' '0.2s' '0.3s' '0.4s' %}"{% endif %} class="group block">
+                <h4 class="font-heading text-xl font-medium text-white transition group-hover:text-violet-brand sm:text-2xl">{{ post.title }}</h4>
+                <div class="mt-2 text-sm text-gray-400">{{ post.published_date|date:"d F Y" }} • {{ post.reading_time }} mn</div>
             </a>
-            <a href="#" data-reveal style="--reveal-delay: 0.1s" class="group block">
-                <h4 class="font-heading text-xl font-medium text-white transition group-hover:text-violet-brand sm:text-2xl">Tout savoir sur le RGPD et vos données</h4>
-                <div class="mt-2 text-sm text-gray-400">10 juillet 2024 • 5 min de lecture</div>
-            </a>
-            <a href="#" data-reveal style="--reveal-delay: 0.2s" class="group block">
-                <h4 class="font-heading text-xl font-medium text-white transition group-hover:text-violet-brand sm:text-2xl">Construire un data catalog en 4 étapes</h4>
-                <div class="mt-2 text-sm text-gray-400">3 juillet 2024 • 6 min de lecture</div>
-            </a>
-            <a href="#" data-reveal style="--reveal-delay: 0.3s" class="group block">
-                <h4 class="font-heading text-xl font-medium text-white transition group-hover:text-violet-brand sm:text-2xl">Les rôles clés d'une équipe data</h4>
-                <div class="mt-2 text-sm text-gray-400">28 juin 2024 • 7 min de lecture</div>
-            </a>
-            <a href="#" data-reveal style="--reveal-delay: 0.4s" class="group block">
-                <h4 class="font-heading text-xl font-medium text-white transition group-hover:text-violet-brand sm:text-2xl">LLM vs RAG : quelle approche choisir ?</h4>
-                <div class="mt-2 text-sm text-gray-400">20 juin 2024 • 6 min de lecture</div>
-            </a>
+            {% empty %}
+            <p class="text-sm text-gray-400">Aucun article publié pour le moment.</p>
+            {% endfor %}
         </div>
 
+        {% if page_obj.paginator.num_pages > 1 %}
         <nav aria-label="Pagination" class="mt-6 flex items-center justify-center gap-2">
-            <a href="#" class="rounded-md px-3 py-2 text-sm text-gray-400 transition hover:text-white">Précédent</a>
-            <a href="#" aria-current="page" class="rounded-md bg-violet-brand px-3 py-2 text-sm font-medium text-white">1</a>
-            <a href="#" class="rounded-md px-3 py-2 text-sm text-gray-400 transition hover:bg-white/10 hover:text-white">2</a>
-            <a href="#" class="rounded-md px-3 py-2 text-sm text-gray-400 transition hover:bg-white/10 hover:text-white">3</a>
-            <a href="#" class="rounded-md px-3 py-2 text-sm text-gray-400 transition hover:text-white">Suivant</a>
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="rounded-md px-3 py-2 text-sm text-gray-400 transition hover:text-white">Précédent</a>
+            {% else %}
+            <span class="rounded-md px-3 py-2 text-sm text-gray-600">Précédent</span>
+            {% endif %}
+
+            {% for page_number in page_obj.paginator.page_range %}
+            {% if page_number == page_obj.number %}
+            <a href="?page={{ page_number }}" aria-current="page" class="rounded-md bg-violet-brand px-3 py-2 text-sm font-medium text-white">{{ page_number }}</a>
+            {% else %}
+            <a href="?page={{ page_number }}" class="rounded-md px-3 py-2 text-sm text-gray-400 transition hover:bg-white/10 hover:text-white">{{ page_number }}</a>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="rounded-md px-3 py-2 text-sm text-gray-400 transition hover:text-white">Suivant</a>
+            {% else %}
+            <span class="rounded-md px-3 py-2 text-sm text-gray-600">Suivant</span>
+            {% endif %}
         </nav>
+        {% endif %}
     </div>
 
     <div class="mx-auto grid max-w-5xl grid-cols-1 gap-6 px-6 pb-24 lg:grid-cols-2 lg:px-8">
         <!-- Vue d'ensemble -->
         <div data-reveal class="flex flex-col">
-            <h3 class="font-heading mb-4 text-center text-base font-medium text-white">Vue d'ensemble</h3>
+            <h3 class="font-heading mb-4 text-center text-2xl font-medium text-white">En chiffres</h3>
             <div class="grid flex-1 grid-cols-2 content-center gap-4">
                 <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
-                    <div class="mb-1 text-xl font-medium text-violet-brand">50+</div>
+                    <div class="mb-1 text-xl font-medium text-violet-brand">{{ overview_stats.articles }}</div>
                     <div class="text-xs text-gray-400">Articles</div>
                 </div>
                 <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
-                    <div class="mb-1 text-xl font-medium text-violet-brand">100+</div>
-                    <div class="text-xs text-gray-400">Termes glossaire</div>
+                    <div class="mb-1 text-xl font-medium text-violet-brand">{{ overview_stats.glossary_terms }}</div>
+                    <div class="text-xs text-gray-400">Définitions</div>
                 </div>
                 <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
-                    <div class="mb-1 text-xl font-medium text-violet-brand">8+</div>
+                    <div class="mb-1 text-xl font-medium text-violet-brand">{{ overview_stats.modules }}</div>
                     <div class="text-xs text-gray-400">Modules</div>
                 </div>
                 <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
-                    <div class="mb-1 text-xl font-medium text-violet-brand">5+</div>
+                    <div class="mb-1 text-xl font-medium text-violet-brand">{{ overview_stats.datastories }}</div>
                     <div class="text-xs text-gray-400">DataStories</div>
                 </div>
             </div>
@@ -113,8 +117,8 @@
 
         <!-- Sujets couverts -->
         <div data-reveal style="--reveal-delay: 0.1s">
-            <h3 class="font-heading mb-4 text-center text-base font-medium text-white">Sujets couverts</h3>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <h3 class="font-heading mb-4 text-center text-2xl font-medium text-white">Ce qu'on explore le plus</h3>
+            <div>
                 {{ topics_chart|safe }}
             </div>
         </div>
@@ -130,11 +134,11 @@
                 <h3 class="font-heading text-base font-medium text-white">Albus</h3>
             </div>
             <p class="mb-4 text-sm leading-6 text-gray-300">Chatbot local spécialisé en gouvernance data et IA. Posez vos questions, obtenez des réponses hors ligne.</p>
-            <button type="button" class="rounded-md bg-violet-brand px-4 py-2 text-sm font-medium text-white transition hover:bg-violet-brand/90">Discuter avec Albus →</button>
+            <a href="https://github.com/flohms18/AlbusVue" target="_blank" rel="noopener noreferrer" class="inline-block rounded-md bg-violet-brand px-4 py-2 text-sm font-medium text-white transition hover:bg-violet-brand/90">Discuter avec Albus →</a>
         </div>
 
         <!-- Lexique -->
-        <a href="#" data-reveal style="--reveal-delay: 0.1s" class="group flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-white/20 hover:bg-white/10">
+        <a href="{% url 'lexique' %}" data-reveal style="--reveal-delay: 0.1s" class="group flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-white/20 hover:bg-white/10">
             <div>
                 <h3 class="font-heading mb-1 text-base font-medium text-white">Lexique</h3>
                 <p class="text-sm leading-6 text-gray-400">100+ termes data &amp; IA expliqués en français simple.</p>

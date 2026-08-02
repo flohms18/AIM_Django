@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Comment les données structurent les organisations modernes - AI MIND{% endblock %}
+{% block title %}{{ post.title }} - AI MIND{% endblock %}
 
 {% block content %}
 <div class="mx-auto max-w-[90%] px-6 pt-32 pb-24 lg:px-8">
@@ -19,106 +19,61 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                     </svg>
-                    15 juillet 2024
+                    {{ post.published_date|date:"d F Y" }}
                 </span>
                 <span class="inline-flex items-center gap-1.5">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
-                    8 min de lecture
+                    {{ post.reading_time }} mn 
                 </span>
+                {% if post.category %}
+                <span class="inline-flex items-center gap-1.5">{{ post.category.name }}</span>
+                {% endif %}
             </div>
             <h1 class="font-heading text-3xl font-semibold tracking-tight text-balance text-gray-900 sm:text-4xl">
-                Comment les données structurent les organisations modernes
+                {{ post.title }}
             </h1>
+            {% if post.excerpt %}
             <p class="mt-4 text-base text-pretty text-gray-600 sm:text-lg">
-                Explore comment la data governance devient centrale dans la transformation digitale des entreprises et quels enjeux elle soulève.
+                {{ post.excerpt }}
             </p>
+            {% endif %}
         </header>
 
-        <div class="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_240px] lg:items-start">
-            <main data-reveal class="min-w-0 text-gray-700">
-                <h2 id="intro" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900 first:mt-0">Introduction</h2>
-                <p class="mb-4 leading-7">Les organisations modernes produisent des volumes de données sans précédent. Mais posséder des données n'équivaut pas à savoir les exploiter. C'est là qu'intervient la data governance : un ensemble de pratiques, processus et outils pour gérer les données comme un actif stratégique.</p>
+        <main data-reveal class="min-w-0 text-gray-700
+            [&_h2]:font-heading [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-gray-900 [&_h2]:first:mt-0
+            [&_h3]:font-heading [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-gray-900
+            [&_p]:mb-4 [&_p]:leading-7
+            [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:mb-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-1
+            [&_a]:text-violet-ink [&_a]:underline [&_strong]:font-semibold [&_em]:italic
+            [&_blockquote]:my-6 [&_blockquote]:rounded-xl [&_blockquote]:border-l-4 [&_blockquote]:border-violet-brand [&_blockquote]:bg-violet-brand/10 [&_blockquote]:p-5 [&_blockquote]:text-violet-ink
+            [&_pre]:my-6 [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:border [&_pre]:border-gray-200 [&_pre]:bg-gray-50 [&_pre]:p-4 [&_pre]:font-mono [&_pre]:text-sm [&_pre]:leading-6 [&_pre]:text-gray-800
+            [&_img]:my-6 [&_img]:rounded-xl">
+            {{ post.content|safe }}
+        </main>
 
-                <div class="my-6 rounded-xl border-l-4 border-violet-brand bg-violet-brand/10 p-5">
-                    <div class="mb-2 text-xs font-medium tracking-wide text-violet-ink uppercase">À retenir</div>
-                    <p class="text-sm text-violet-ink">La data governance n'est pas qu'un projet IT. C'est une transformation culturelle qui implique métier, données et technologie.</p>
-                </div>
-
-                <h2 id="pillars" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">Les trois piliers de la data governance</h2>
-                <p class="mb-4 leading-7">Une stratégie de gouvernance repose sur trois piliers interdépendants :</p>
-
-                <h3 id="metadata" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">1. La gestion des métadonnées</h3>
-                <p class="mb-4 leading-7">Les métadonnées sont les données <em class="text-gray-500 italic">sur</em> les données. Elles décrivent l'origine, la qualité, et le contexte de chaque ensemble de données.</p>
-
-                <pre class="my-6 overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-4 font-mono text-sm leading-6 text-gray-800"><code>{
-  "dataset": "customer_transactions",
-  "owner": "data.team@company.com",
-  "quality_score": 0.94,
-  "last_updated": "2024-07-15"
-}</code></pre>
-
-                <h3 id="quality" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">2. La qualité des données</h3>
-                <p class="mb-4 leading-7">Sans qualité, les données induisent en erreur. La qualité couvre l'exactitude, la complétude, la cohérence et la ponctualité.</p>
-
-                <h3 id="compliance" class="font-heading mt-8 mb-3 text-base font-semibold text-gray-900">3. La conformité et la sécurité</h3>
-                <p class="mb-4 leading-7">RGPD, CCPA, normes sectorielles : respecter la réglementation devient un enjeu stratégique.</p>
-
-                <div class="my-6 rounded-xl border-l-4 border-violet-brand bg-violet-brand/10 p-5">
-                    <div class="mb-2 text-xs font-medium tracking-wide text-violet-ink uppercase">Point clé</div>
-                    <p class="text-sm text-violet-ink">Les investissements en gouvernance réduisent les risques et libèrent jusqu'à 30% de capacité analytique.</p>
-                </div>
-
-                <h2 id="impl" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">Implémentation pratique</h2>
-                <p class="mb-4 leading-7">Passer de la théorie à la pratique demande de la rigueur et une approche progressive. Commencez par inventorier vos données critiques, puis déployez des contrôles de qualité ciblés.</p>
-                <p class="mb-4 leading-7">L'implication des métiers est capitale. Ils sont les experts du contexte et peuvent valider la pertinence des mesures mises en place.</p>
-
-                <h2 id="conclusion" class="font-heading mt-10 mb-4 text-xl font-semibold text-gray-900">Conclusion</h2>
-                <p class="mb-4 leading-7">La data governance est moins une destination qu'un voyage continu. Les organisations qui la maîtrisent gagnent en agilité, en confiance dans leurs analyses, et en capacité à innover.</p>
-
-                <div class="my-6 flex flex-wrap gap-2">
-                    <a href="#" class="rounded-full border border-violet-brand/30 bg-violet-brand/10 px-3 py-1 text-xs text-violet-ink transition hover:bg-violet-brand/20">Gouvernance</a>
-                    <a href="#" class="rounded-full border border-violet-brand/30 bg-violet-brand/10 px-3 py-1 text-xs text-violet-ink transition hover:bg-violet-brand/20">Data Management</a>
-                    <a href="#" class="rounded-full border border-violet-brand/30 bg-violet-brand/10 px-3 py-1 text-xs text-violet-ink transition hover:bg-violet-brand/20">Qualité des données</a>
-                    <a href="#" class="rounded-full border border-violet-brand/30 bg-violet-brand/10 px-3 py-1 text-xs text-violet-ink transition hover:bg-violet-brand/20">Conformité</a>
-                    <a href="#" class="rounded-full border border-violet-brand/30 bg-violet-brand/10 px-3 py-1 text-xs text-violet-ink transition hover:bg-violet-brand/20">Organisation</a>
-                </div>
-
-                <section class="mt-12 border-t border-gray-200 pt-8">
-                    <h3 class="font-heading mb-5 text-lg font-semibold text-gray-900">Articles connexes</h3>
-                    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                        <a href="#" class="block rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-gray-300 hover:bg-gray-100">
-                            <h4 class="font-heading mb-2 text-sm font-medium text-gray-900">Tout savoir sur le RGPD et vos données</h4>
-                            <div class="text-xs text-gray-500">5 min • Conformité</div>
-                        </a>
-                        <a href="#" class="block rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-gray-300 hover:bg-gray-100">
-                            <h4 class="font-heading mb-2 text-sm font-medium text-gray-900">Construire un data catalog en 4 étapes</h4>
-                            <div class="text-xs text-gray-500">6 min • Data Mesh</div>
-                        </a>
-                        <a href="#" class="block rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-gray-300 hover:bg-gray-100">
-                            <h4 class="font-heading mb-2 text-sm font-medium text-gray-900">Les rôles clés d'une équipe data</h4>
-                            <div class="text-xs text-gray-500">7 min • Compétences</div>
-                        </a>
-                    </div>
-                </section>
-            </main>
-
-            <aside data-reveal style="--reveal-delay: 0.1s" class="hidden lg:block">
-                <nav class="sticky top-28 rounded-2xl border border-gray-200 bg-gray-50 p-5">
-                    <div class="mb-4 text-xs font-medium tracking-wide text-gray-500 uppercase">Sommaire</div>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="#intro" class="text-violet-ink transition hover:text-gray-900">Introduction</a></li>
-                        <li><a href="#pillars" class="text-violet-ink transition hover:text-gray-900">Les trois piliers</a></li>
-                        <li><a href="#metadata" class="text-violet-ink transition hover:text-gray-900">Métadonnées</a></li>
-                        <li><a href="#quality" class="text-violet-ink transition hover:text-gray-900">Qualité</a></li>
-                        <li><a href="#compliance" class="text-violet-ink transition hover:text-gray-900">Conformité</a></li>
-                        <li><a href="#impl" class="text-violet-ink transition hover:text-gray-900">Implémentation</a></li>
-                        <li><a href="#conclusion" class="text-violet-ink transition hover:text-gray-900">Conclusion</a></li>
-                    </ul>
-                </nav>
-            </aside>
+        {% if post.tags.all %}
+        <div class="my-6 flex flex-wrap gap-2">
+            {% for tag in post.tags.all %}
+            <span class="rounded-full border border-violet-brand/30 bg-violet-brand/10 px-3 py-1 text-xs text-violet-ink">{{ tag.name }}</span>
+            {% endfor %}
         </div>
+        {% endif %}
+
+        {% if related_posts %}
+        <section class="mt-12 border-t border-gray-200 pt-8">
+            <h3 class="font-heading mb-5 text-lg font-semibold text-gray-900">Articles connexes</h3>
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                {% for related in related_posts %}
+                <a href="{% url 'article' related.slug %}" class="block rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-gray-300 hover:bg-gray-100">
+                    <h4 class="font-heading mb-2 text-sm font-medium text-gray-900">{{ related.title }}</h4>
+                    <div class="text-xs text-gray-500">{{ related.reading_time }} min{% if related.category %} • {{ related.category.name }}{% endif %}</div>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

@@ -1,28 +1,35 @@
 import plotly.graph_objects as go
-from django.shortcuts import render
+from django.core.paginator import Paginator
+from django.db.models import Count
+from django.shortcuts import render, get_object_or_404
+from django.utils.html import strip_tags
+
+from .models import Post, GlossaryTerm, Tag, Category
+
+POSTS_PER_PAGE = 5
 
 # Create your views here.
 
-# TODO: remplacer par les vraies données une fois disponibles.
-TOPICS = [
-    ("Generative AI", 7),
-    ("Data Engineering", 8),
-    ("RAG & Fine-tuning", 9),
-    ("Transformers & NLP", 10),
-    ("Data Governance", 12),
-    ("LLMs", 15),
-]
+
+def _reading_time(post):
+    word_count = len(strip_tags(post.content).split())
+    return max(1, round(word_count / 200))
 
 
 def index(request):
-    labels = [label for label, _ in TOPICS]
-    values = [value for _, value in TOPICS]
+    topics = (
+        Tag.objects.annotate(num_posts=Count('posts'))
+        .filter(num_posts__gt=0)
+        .order_by('num_posts')
+    )
+    labels = [tag.name for tag in topics]
+    values = [tag.num_posts for tag in topics]
 
     fig = go.Figure(go.Bar(
         x=values,
         y=labels,
         orientation='h',
-        marker=dict(color='#5c6bff', cornerradius=6),
+        marker=dict(color='#5c6bff', cornerradius=6, line=dict(width=0)),
         hovertemplate='%{y} : %{x}<extra></extra>',
     ))
     fig.update_layout(
@@ -43,7 +50,7 @@ def index(request):
                 xshift=15,       # gap in pixels between bar end and text
                 xanchor='left',
             )
-            for label, value in TOPICS
+            for label, value in zip(labels, values)
         ],
     )
 
@@ -53,12 +60,49 @@ def index(request):
         config={'displayModeBar': False, 'responsive': True},
     )
 
-    return render(request, 'index.html', {'topics_chart': topics_chart})
+    posts = Post.objects.order_by('-published_date')
+    paginator = Paginator(posts, POSTS_PER_PAGE)
+    page_obj = paginator.get_page(request.GET.get('page'))
+    for post in page_obj:
+        post.reading_time = _reading_time(post)
+
+    overview_stats = {
+        'articles': Post.objects.count(),
+        'glossary_terms': GlossaryTerm.objects.count(),
+        'modules': Post.objects.filter(types__name__icontains='module').distinct().count(),
+        'datastories': Post.objects.filter(types__name__icontains='datastor').distinct().count(),
+    }
+
+    return render(request, 'index.html', {
+        'topics_chart': topics_chart,
+        'page_obj': page_obj,
+        'overview_stats': overview_stats,
+    })
 
 
-def article(request):
-    return render(request, 'article.html')
+def article(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    post.reading_time = _reading_time(post)
+
+    related_posts = Post.objects.exclude(pk=post.pk).order_by('-published_date')[:3]
+    for related in related_posts:
+        related.reading_time = _reading_time(related)
+
+    return render(request, 'article.html', {'post': post, 'related_posts': related_posts})
+
+
+def category(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+
+    posts = Post.objects.filter(category=category).order_by('-published_date')
+    paginator = Paginator(posts, POSTS_PER_PAGE)
+    page_obj = paginator.get_page(request.GET.get('page'))
+    for post in page_obj:
+        post.reading_time = _reading_time(post)
+
+    return render(request, 'category.html', {'category': category, 'page_obj': page_obj})
 
 
 def lexique(request):
-    return render(request, 'lexique.html')
+    terms = GlossaryTerm.objects.order_by('term')
+    return render(request, 'lexique.html', {'terms': terms})

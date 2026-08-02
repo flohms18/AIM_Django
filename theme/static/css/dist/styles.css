@@ -23,6 +23,7 @@
     --color-white: #fff;
     --spacing: 0.25rem;
     --container-sm: 24rem;
+    --container-md: 28rem;
     --container-2xl: 42rem;
     --container-3xl: 48rem;
     --container-5xl: 64rem;
@@ -49,8 +50,13 @@
     --text-6xl--line-height: 1;
     --text-7xl: 4.5rem;
     --text-7xl--line-height: 1;
+    --text-8xl: 6rem;
+    --text-8xl--line-height: 1;
+    --text-9xl: 8rem;
+    --text-9xl--line-height: 1;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
+    --font-weight-bold: 700;
     --tracking-tight: -0.025em;
     --tracking-normal: 0em;
     --tracking-wide: 0.025em;
@@ -220,6 +226,12 @@
   }
 }
 @layer utilities {
+  .pointer-events-none {
+    pointer-events: none;
+  }
+  .visible {
+    visibility: visible;
+  }
   .sr-only {
     position: absolute;
     width: 1px;
@@ -255,11 +267,20 @@
   .inset-y-0 {
     inset-block: calc(var(--spacing) * 0);
   }
+  .-top-6 {
+    top: calc(var(--spacing) * -6);
+  }
   .-top-40 {
     top: calc(var(--spacing) * -40);
   }
   .top-0 {
     top: calc(var(--spacing) * 0);
+  }
+  .top-1\/2 {
+    top: calc(1 / 2 * 100%);
+  }
+  .top-4 {
+    top: calc(var(--spacing) * 4);
   }
   .top-28 {
     top: calc(var(--spacing) * 28);
@@ -269,6 +290,9 @@
   }
   .right-0 {
     right: calc(var(--spacing) * 0);
+  }
+  .left-3 {
+    left: calc(var(--spacing) * 3);
   }
   .left-\[calc\(50\%\+3rem\)\] {
     left: calc(50% + 3rem);
@@ -342,6 +366,9 @@
   .mt-12 {
     margin-top: calc(var(--spacing) * 12);
   }
+  .mt-14 {
+    margin-top: calc(var(--spacing) * 14);
+  }
   .mt-16 {
     margin-top: calc(var(--spacing) * 16);
   }
@@ -384,6 +411,9 @@
   .hidden {
     display: none;
   }
+  .inline-block {
+    display: inline-block;
+  }
   .inline-flex {
     display: inline-flex;
   }
@@ -401,6 +431,10 @@
   .size-6 {
     width: calc(var(--spacing) * 6);
     height: calc(var(--spacing) * 6);
+  }
+  .size-8 {
+    width: calc(var(--spacing) * 8);
+    height: calc(var(--spacing) * 8);
   }
   .h-screen {
     height: 100vh;
@@ -432,6 +466,9 @@
   .max-w-\[90\%\] {
     max-width: 90%;
   }
+  .max-w-md {
+    max-width: var(--container-md);
+  }
   .min-w-0 {
     min-width: calc(var(--spacing) * 0);
   }
@@ -445,11 +482,18 @@
     --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
+  .-translate-y-1\/2 {
+    --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
   .rotate-30 {
     rotate: 30deg;
   }
   .transform-gpu {
     transform: translateZ(0) var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+  }
+  .scroll-mt-32 {
+    scroll-margin-top: calc(var(--spacing) * 32);
   }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -583,6 +627,9 @@
     border-left-style: var(--tw-border-style);
     border-left-width: 4px;
   }
+  .border-gray-100 {
+    border-color: var(--color-gray-100);
+  }
   .border-gray-200 {
     border-color: var(--color-gray-200);
   }
@@ -629,6 +676,12 @@
     background-color: color-mix(in srgb, #fff 5%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-white) 5%, transparent);
+    }
+  }
+  .bg-white\/95 {
+    background-color: color-mix(in srgb, #fff 95%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 95%, transparent);
     }
   }
   .bg-linear-to-tr {
@@ -679,6 +732,9 @@
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
   }
+  .py-2\.5 {
+    padding-block: calc(var(--spacing) * 2.5);
+  }
   .py-6 {
     padding-block: calc(var(--spacing) * 6);
   }
@@ -697,11 +753,20 @@
   .pt-32 {
     padding-top: calc(var(--spacing) * 32);
   }
+  .pr-4 {
+    padding-right: calc(var(--spacing) * 4);
+  }
+  .pb-6 {
+    padding-bottom: calc(var(--spacing) * 6);
+  }
   .pb-8 {
     padding-bottom: calc(var(--spacing) * 8);
   }
   .pb-24 {
     padding-bottom: calc(var(--spacing) * 24);
+  }
+  .pl-10 {
+    padding-left: calc(var(--spacing) * 10);
   }
   .text-center {
     text-align: center;
@@ -715,6 +780,10 @@
   .font-serif {
     font-family: var(--font-serif);
   }
+  .text-2xl {
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
+  }
   .text-3xl {
     font-size: var(--text-3xl);
     line-height: var(--tw-leading, var(--text-3xl--line-height));
@@ -726,6 +795,10 @@
   .text-5xl {
     font-size: var(--text-5xl);
     line-height: var(--tw-leading, var(--text-5xl--line-height));
+  }
+  .text-8xl {
+    font-size: var(--text-8xl);
+    line-height: var(--tw-leading, var(--text-8xl--line-height));
   }
   .text-base {
     font-size: var(--text-base);
@@ -767,6 +840,10 @@
     --tw-leading: var(--leading-normal);
     line-height: var(--leading-normal);
   }
+  .font-bold {
+    --tw-font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-bold);
+  }
   .font-medium {
     --tw-font-weight: var(--font-weight-medium);
     font-weight: var(--font-weight-medium);
@@ -798,6 +875,9 @@
   }
   .text-emerald-300 {
     color: var(--color-emerald-300);
+  }
+  .text-gray-100 {
+    color: var(--color-gray-100);
   }
   .text-gray-200 {
     color: var(--color-gray-200);
@@ -845,6 +925,10 @@
     --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .shadow-sm {
+    --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
   .shadow-black\/30 {
     --tw-shadow-color: color-mix(in srgb, #000 30%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -855,10 +939,23 @@
     --tw-blur: blur(var(--blur-3xl));
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
   }
+  .backdrop-blur {
+    --tw-backdrop-blur: blur(8px);
+    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  }
   .transition {
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .outline-none {
+    --tw-outline-style: none;
+    outline-style: none;
+  }
+  .select-none {
+    -webkit-user-select: none;
+    user-select: none;
   }
   .group-hover\:translate-x-1 {
     &:is(:where(.group):hover *) {
@@ -872,6 +969,13 @@
     &:is(:where(.group):hover *) {
       @media (hover: hover) {
         color: var(--color-violet-brand);
+      }
+    }
+  }
+  .group-hover\:text-violet-ink {
+    &:is(:where(.group):hover *) {
+      @media (hover: hover) {
+        color: var(--color-violet-ink);
       }
     }
   }
@@ -890,6 +994,22 @@
   .first\:mt-0 {
     &:first-child {
       margin-top: calc(var(--spacing) * 0);
+    }
+  }
+  .last\:mb-0 {
+    &:last-child {
+      margin-bottom: calc(var(--spacing) * 0);
+    }
+  }
+  .last\:border-0 {
+    &:last-child {
+      border-style: var(--tw-border-style);
+      border-width: 0px;
+    }
+  }
+  .last\:pb-0 {
+    &:last-child {
+      padding-bottom: calc(var(--spacing) * 0);
     }
   }
   .hover\:border-gray-300 {
@@ -913,6 +1033,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-gray-100);
+      }
+    }
+  }
+  .hover\:bg-violet-brand {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-violet-brand);
       }
     }
   }
@@ -967,6 +1094,30 @@
     &:hover {
       @media (hover: hover) {
         color: var(--color-white);
+      }
+    }
+  }
+  .focus\:border-violet-brand {
+    &:focus {
+      border-color: var(--color-violet-brand);
+    }
+  }
+  .focus\:bg-white {
+    &:focus {
+      background-color: var(--color-white);
+    }
+  }
+  .focus\:ring-2 {
+    &:focus {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+  }
+  .focus\:ring-violet-brand\/20 {
+    &:focus {
+      --tw-ring-color: color-mix(in srgb, #5c6bff 20%, transparent);
+      @supports (color: color-mix(in lab, red, red)) {
+        --tw-ring-color: color-mix(in oklab, var(--color-violet-brand) 20%, transparent);
       }
     }
   }
@@ -1084,6 +1235,12 @@
       line-height: var(--tw-leading, var(--text-5xl--line-height));
     }
   }
+  .sm\:text-9xl {
+    @media (width >= 40rem) {
+      font-size: var(--text-9xl);
+      line-height: var(--tw-leading, var(--text-9xl--line-height));
+    }
+  }
   .sm\:text-base {
     @media (width >= 40rem) {
       font-size: var(--text-base);
@@ -1186,6 +1343,251 @@
     @media (width >= 64rem) {
       font-size: var(--text-7xl);
       line-height: var(--tw-leading, var(--text-7xl--line-height));
+    }
+  }
+  .\[\&_a\]\:text-violet-ink {
+    & a {
+      color: var(--color-violet-ink);
+    }
+  }
+  .\[\&_a\]\:underline {
+    & a {
+      text-decoration-line: underline;
+    }
+  }
+  .\[\&_blockquote\]\:my-6 {
+    & blockquote {
+      margin-block: calc(var(--spacing) * 6);
+    }
+  }
+  .\[\&_blockquote\]\:rounded-xl {
+    & blockquote {
+      border-radius: var(--radius-xl);
+    }
+  }
+  .\[\&_blockquote\]\:border-l-4 {
+    & blockquote {
+      border-left-style: var(--tw-border-style);
+      border-left-width: 4px;
+    }
+  }
+  .\[\&_blockquote\]\:border-violet-brand {
+    & blockquote {
+      border-color: var(--color-violet-brand);
+    }
+  }
+  .\[\&_blockquote\]\:bg-violet-brand\/10 {
+    & blockquote {
+      background-color: color-mix(in srgb, #5c6bff 10%, transparent);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-violet-brand) 10%, transparent);
+      }
+    }
+  }
+  .\[\&_blockquote\]\:p-5 {
+    & blockquote {
+      padding: calc(var(--spacing) * 5);
+    }
+  }
+  .\[\&_blockquote\]\:text-violet-ink {
+    & blockquote {
+      color: var(--color-violet-ink);
+    }
+  }
+  .\[\&_em\]\:italic {
+    & em {
+      font-style: italic;
+    }
+  }
+  .\[\&_h2\]\:mt-10 {
+    & h2 {
+      margin-top: calc(var(--spacing) * 10);
+    }
+  }
+  .\[\&_h2\]\:mb-4 {
+    & h2 {
+      margin-bottom: calc(var(--spacing) * 4);
+    }
+  }
+  .\[\&_h2\]\:font-heading {
+    & h2 {
+      font-family: var(--font-heading);
+    }
+  }
+  .\[\&_h2\]\:text-xl {
+    & h2 {
+      font-size: var(--text-xl);
+      line-height: var(--tw-leading, var(--text-xl--line-height));
+    }
+  }
+  .\[\&_h2\]\:font-semibold {
+    & h2 {
+      --tw-font-weight: var(--font-weight-semibold);
+      font-weight: var(--font-weight-semibold);
+    }
+  }
+  .\[\&_h2\]\:text-gray-900 {
+    & h2 {
+      color: var(--color-gray-900);
+    }
+  }
+  .\[\&_h2\]\:first\:mt-0 {
+    & h2 {
+      &:first-child {
+        margin-top: calc(var(--spacing) * 0);
+      }
+    }
+  }
+  .\[\&_h3\]\:mt-8 {
+    & h3 {
+      margin-top: calc(var(--spacing) * 8);
+    }
+  }
+  .\[\&_h3\]\:mb-3 {
+    & h3 {
+      margin-bottom: calc(var(--spacing) * 3);
+    }
+  }
+  .\[\&_h3\]\:font-heading {
+    & h3 {
+      font-family: var(--font-heading);
+    }
+  }
+  .\[\&_h3\]\:text-base {
+    & h3 {
+      font-size: var(--text-base);
+      line-height: var(--tw-leading, var(--text-base--line-height));
+    }
+  }
+  .\[\&_h3\]\:font-semibold {
+    & h3 {
+      --tw-font-weight: var(--font-weight-semibold);
+      font-weight: var(--font-weight-semibold);
+    }
+  }
+  .\[\&_h3\]\:text-gray-900 {
+    & h3 {
+      color: var(--color-gray-900);
+    }
+  }
+  .\[\&_img\]\:my-6 {
+    & img {
+      margin-block: calc(var(--spacing) * 6);
+    }
+  }
+  .\[\&_img\]\:rounded-xl {
+    & img {
+      border-radius: var(--radius-xl);
+    }
+  }
+  .\[\&_li\]\:mb-1 {
+    & li {
+      margin-bottom: calc(var(--spacing) * 1);
+    }
+  }
+  .\[\&_ol\]\:mb-4 {
+    & ol {
+      margin-bottom: calc(var(--spacing) * 4);
+    }
+  }
+  .\[\&_ol\]\:list-decimal {
+    & ol {
+      list-style-type: decimal;
+    }
+  }
+  .\[\&_ol\]\:pl-6 {
+    & ol {
+      padding-left: calc(var(--spacing) * 6);
+    }
+  }
+  .\[\&_p\]\:mb-4 {
+    & p {
+      margin-bottom: calc(var(--spacing) * 4);
+    }
+  }
+  .\[\&_p\]\:leading-7 {
+    & p {
+      --tw-leading: calc(var(--spacing) * 7);
+      line-height: calc(var(--spacing) * 7);
+    }
+  }
+  .\[\&_pre\]\:my-6 {
+    & pre {
+      margin-block: calc(var(--spacing) * 6);
+    }
+  }
+  .\[\&_pre\]\:overflow-x-auto {
+    & pre {
+      overflow-x: auto;
+    }
+  }
+  .\[\&_pre\]\:rounded-lg {
+    & pre {
+      border-radius: var(--radius-lg);
+    }
+  }
+  .\[\&_pre\]\:border {
+    & pre {
+      border-style: var(--tw-border-style);
+      border-width: 1px;
+    }
+  }
+  .\[\&_pre\]\:border-gray-200 {
+    & pre {
+      border-color: var(--color-gray-200);
+    }
+  }
+  .\[\&_pre\]\:bg-gray-50 {
+    & pre {
+      background-color: var(--color-gray-50);
+    }
+  }
+  .\[\&_pre\]\:p-4 {
+    & pre {
+      padding: calc(var(--spacing) * 4);
+    }
+  }
+  .\[\&_pre\]\:font-mono {
+    & pre {
+      font-family: var(--font-mono);
+    }
+  }
+  .\[\&_pre\]\:text-sm {
+    & pre {
+      font-size: var(--text-sm);
+      line-height: var(--tw-leading, var(--text-sm--line-height));
+    }
+  }
+  .\[\&_pre\]\:leading-6 {
+    & pre {
+      --tw-leading: calc(var(--spacing) * 6);
+      line-height: calc(var(--spacing) * 6);
+    }
+  }
+  .\[\&_pre\]\:text-gray-800 {
+    & pre {
+      color: var(--color-gray-800);
+    }
+  }
+  .\[\&_strong\]\:font-semibold {
+    & strong {
+      --tw-font-weight: var(--font-weight-semibold);
+      font-weight: var(--font-weight-semibold);
+    }
+  }
+  .\[\&_ul\]\:mb-4 {
+    & ul {
+      margin-bottom: calc(var(--spacing) * 4);
+    }
+  }
+  .\[\&_ul\]\:list-disc {
+    & ul {
+      list-style-type: disc;
+    }
+  }
+  .\[\&_ul\]\:pl-6 {
+    & ul {
+      padding-left: calc(var(--spacing) * 6);
     }
   }
 }
@@ -1391,6 +1793,42 @@
   syntax: "*";
   inherits: false;
 }
+@property --tw-backdrop-blur {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-brightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-contrast {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-grayscale {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-invert {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-opacity {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-saturate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-sepia {
+  syntax: "*";
+  inherits: false;
+}
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
@@ -1439,6 +1877,15 @@
       --tw-drop-shadow-color: initial;
       --tw-drop-shadow-alpha: 100%;
       --tw-drop-shadow-size: initial;
+      --tw-backdrop-blur: initial;
+      --tw-backdrop-brightness: initial;
+      --tw-backdrop-contrast: initial;
+      --tw-backdrop-grayscale: initial;
+      --tw-backdrop-hue-rotate: initial;
+      --tw-backdrop-invert: initial;
+      --tw-backdrop-opacity: initial;
+      --tw-backdrop-saturate: initial;
+      --tw-backdrop-sepia: initial;
     }
   }
 }
