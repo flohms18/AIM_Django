@@ -1,0 +1,22 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}AI MIND{% endblock %}</title>
+        {% tailwind_css %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body class="flex min-h-screen flex-col bg-dark-brand">
+        <!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
+        {% include "header.html" %}
+
+        <main class="flex-1">
+            {% block content %}{% endblock %}
+        </main>
+
+        {% include "footer.html" %}
+    </body>
+</html>
