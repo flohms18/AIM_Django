@@ -1,0 +1,21 @@
+# Example server block. Adjust paths/domain, drop into
+# /etc/nginx/sites-available/, symlink into sites-enabled, then:
+# nginx -t && systemctl reload nginx
+server {
+    listen 80;
+    server_name example.com;
+
+    # Must match STATIC_ROOT in settings.py. This is what makes the
+    # Tailwind CSS (and all other static assets) reachable in prod, since
+    # DEBUG=False means Django itself no longer serves /static/.
+    location /static/ {
+        alias /path/to/AIM_Django/staticfiles/;
+    }
+
+    location / {
+        proxy_pass http://unix:/run/gunicorn/aim_django.sock;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}

@@ -10,22 +10,42 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+
+from django.core.exceptions import ImproperlyConfigured
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Reads a .env file in BASE_DIR if present. Both locally and on the VPS this
+# is how DJANGO_SECRET_KEY / DJANGO_DEBUG / DJANGO_ALLOWED_HOSTS get set —
+# see .env.example.
+load_dotenv(BASE_DIR / '.env')
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^2m=nm5a6-a5v%!!w(0xzawg!v9#m@kh_!c0t^a%o%yi3t5d8q'
+try:
+    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+except KeyError:
+    raise ImproperlyConfigured(
+        'DJANGO_SECRET_KEY is not set. Copy .env.example to .env and set it '
+        '(generate one with: python -c "from django.core.management.utils '
+        'import get_random_secret_key; print(get_random_secret_key())").'
+    )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',')
+    if host.strip()
+]
 
 
 # Application definition
@@ -127,3 +147,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Where `collectstatic` gathers every app's static/ dir (including theme's
+# compiled Tailwind output) so nginx can serve it directly. DEBUG=True skips
+# this and serves static files itself, which is why this only bites in prod.
+STATIC_ROOT = BASE_DIR / 'staticfiles'

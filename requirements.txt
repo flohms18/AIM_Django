@@ -1,0 +1,7 @@
+Django==6.0.7
+django-tailwind==4.5.0
+django-tinymce==5.0.0
+pytailwindcss==0.3.1
+python-dotenv==1.2.1
+gunicorn==23.0.0
+plotly==6.3.0
